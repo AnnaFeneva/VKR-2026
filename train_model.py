@@ -2,7 +2,7 @@ import pandas as pd
 import joblib
 import os
 
-from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -26,11 +26,13 @@ preprocessor = ColumnTransformer([
 pipeline = Pipeline([
     ("preprocessor", preprocessor),
     ("scaler", StandardScaler()),
-    ("model", GradientBoostingRegressor(
+    ("model", RandomForestRegressor(
         n_estimators=200,
-        learning_rate=0.05,
-        max_depth=5,
-        random_state=42
+        #learning_rate=0.05,
+        max_depth=15,
+        random_state=42,
+        min_samples_split=5,
+        min_samples_leaf=2
     ))
 ])
 
